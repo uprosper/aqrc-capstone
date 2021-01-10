@@ -1,13 +1,14 @@
 plugins {
     id 'com.android.application'
 }
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.aqrc"
+        applicationId "com.aqrc.project"
         minSdkVersion 25
         targetSdkVersion 30
         versionCode 1
@@ -37,7 +38,21 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.2.2'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    implementation 'androidx.annotation:annotation:1.1.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'com.google.firebase:firebase-auth'
+    implementation platform('com.google.firebase:firebase-bom:26.2.0')
+    implementation 'com.jakewharton:butterknife:6.1.0'
+    implementation 'com.edwardvanraak:MaterialBarcodeScanner:0.0.6-ALPHA'
+    implementation 'com.google.android.gms:play-services-vision:20.1.3'
+    implementation 'me.dm7.barcodescanner:zxing:1.9'
+
+    implementation 'com.google.zxing:core:3.2.1'
+    implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
+
+
+
+
 }
