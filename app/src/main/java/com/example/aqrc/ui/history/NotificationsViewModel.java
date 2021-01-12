@@ -1,4 +1,4 @@
-package com.example.aqrc.ui.notifications;
+package com.example.aqrc.ui.history;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

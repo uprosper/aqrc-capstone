@@ -3,6 +3,7 @@
     package="com.example.aqrc">
 
     <application
+        android:name=".AQRCApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,6 +21,11 @@
             </intent-filter>
 
         </activity>
+        <activity
+            android:name=".ui.scanresult.ScanResultActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.GradientStatusBar"  />
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.AQRC"
