@@ -1,4 +1,4 @@
-package com.example.aqrc.ui.notifications;
+package com.example.aqrc.ui.history;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

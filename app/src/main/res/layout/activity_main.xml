@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="?attr/actionBarSize">
+    android:layout_height="match_parent">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
@@ -33,11 +32,6 @@
         app:layout_constraintVertical_bias="1.0"
         app:navGraph="@navigation/mobile_navigation" />
 
-    <LinearLayout
-        android:layout_width="415dp"
-        android:layout_height="158dp"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="-4dp"
-        tools:layout_editor_absoluteY="-1dp"></LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,14 +1,16 @@
-package com.example.aqrc.ui.dashboard;
+package com.example.aqrc.ui.generate;
 
 import android.app.Activity;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,28 +23,52 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import com.edwardvanraak.materialbarcodescanner.MaterialBarcodeScanner;
-import com.edwardvanraak.materialbarcodescanner.MaterialBarcodeScannerBuilder;
-import com.google.android.gms.vision.barcode.Barcode;
-
-
+import androidx.loader.content.CursorLoader;
 
 import com.example.aqrc.R;
+import com.example.aqrc.helpers.constant.AppConstants;
+import com.example.aqrc.helpers.constant.IntentKey;
+import com.example.aqrc.helpers.constant.PreferenceKey;
+import com.example.aqrc.helpers.model.Code;
+import com.example.aqrc.helpers.util.FileUtil;
+import com.example.aqrc.helpers.util.ProgressDialogUtil;
+import com.example.aqrc.helpers.util.SharedPrefUtil;
+import com.example.aqrc.helpers.util.image.ImageInfo;
+import com.example.aqrc.helpers.util.image.ImagePicker;
+import com.example.aqrc.ui.pickedfromgallery.PickedFromGalleryActivity;
+import com.example.aqrc.ui.scanresult.ScanResultActivity;
+import com.google.android.gms.vision.barcode.Barcode;
 import com.google.zxing.BarcodeFormat;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.DecodeHintType;
+import com.google.zxing.LuminanceSource;
+import com.google.zxing.MultiFormatReader;
 import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.RGBLuminanceSource;
+import com.google.zxing.Reader;
 import com.google.zxing.Result;
+import com.google.zxing.ResultPoint;
 import com.google.zxing.WriterException;
+import com.google.zxing.client.android.BeepManager;
 import com.google.zxing.common.BitMatrix;
+import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
+import com.journeyapps.barcodescanner.BarcodeCallback;
+import com.journeyapps.barcodescanner.BarcodeResult;
+import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 
-import java.util.logging.Logger;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Locale;
 
-import me.dm7.barcodescanner.zxing.ZXingScannerView;
+
 
 
 public class DashboardFragment extends Fragment {
@@ -117,6 +143,7 @@ public class DashboardFragment extends Fragment {
                 IntentIntegrator integrator = new IntentIntegrator(getActivity());
                 integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
                 integrator.setPrompt("Scan");
+                integrator.setOrientationLocked(false);
                 integrator.setCameraId(0);
                 integrator.setBeepEnabled(false);
                 integrator.setBarcodeImageEnabled(false);
@@ -161,27 +188,39 @@ public class DashboardFragment extends Fragment {
         return bitmap;
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() == null) {
-                Log.e("Scan*******", "Cancelled scan");
+    private String formatToEncode(String value){
+        String domain = "https://aqrc.app/";
+        String uuid = "";
+        String hash = "";
+        String timestamp = "";
 
-            } else {
-                Log.e("Scan", "Scanned");
-
-                tv_qr_readTxt.setText(result.getContents());
-                Toast.makeText(getContext(), "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
-            }
-        } else {
-            // This is important, otherwise the result will not be passed to the fragment
-            super.onActivityResult(requestCode, resultCode, data);
-        }
+                return "";
     }
+
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+//        if(result != null) {
+//            if(result.getContents() == null) {
+//                Log.e("Scan*******", "Cancelled scan");
+//
+//            } else {
+//                Log.e("Scan", "Scanned");
+//
+//                tv_qr_readTxt.setText(result.getContents());
+//                Toast.makeText(getContext(), "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+//            }
+//        } else {
+//            // This is important, otherwise the result will not be passed to the fragment
+//            super.onActivityResult(requestCode, resultCode, data);
+//        }
+//    }
+
+
 
     @Override
     public void onDestroy() {
         super.onDestroy();
     }
 }
+
