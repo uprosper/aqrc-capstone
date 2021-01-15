@@ -32,8 +32,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableCompletableObserver;
 import io.reactivex.schedulers.Schedulers;
-//import qrcoba.w3engineers.com.qrcoba.R;
-//import qrcoba.w3engineers.com.qrcoba.databinding.ActivityScanResultBinding;
+//import com.example.aqrc.R;
+//import com.example.aqrc.databinding.ActivityScanResultBinding;
 import com.bumptech.glide.Glide;
 import com.example.aqrc.R;
 import com.example.aqrc.databinding.ActivityScanResultBinding;
@@ -43,7 +43,7 @@ import com.example.aqrc.helpers.model.Code;
 import com.example.aqrc.helpers.util.SharedPrefUtil;
 import com.example.aqrc.helpers.util.TimeUtil;
 import com.example.aqrc.helpers.util.database.DatabaseUtil;
-//import qrcoba.w3engineers.com.qrcoba.ui.settings.SettingsActivity;
+//import com.example.aqrc.ui.settings.SettingsActivity;
 
 public class ScanResultActivity extends AppCompatActivity implements View.OnClickListener {
 

@@ -5,17 +5,21 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.aqrc.ui.generate.GeneratedCodeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
         NavigationUI.setupWithNavController(navView, navController);
     }
 
@@ -56,4 +61,41 @@ public class MainActivity extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        System.out.println("back pressed");
+
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+
+        if (count == 0) {
+            super.onBackPressed();
+            System.out.println("back pressed 000");
+            //additional code
+        } else {
+            System.out.println("back pressed 2x");
+//            final NavController controller = Navigation.findNavController(this, R.id.nav_host_fragment);
+//            controller.popBackStack();
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag("generatedFragment");
+            Log.d(TAG, "onBackPressed: " + fragment.getClass().getSimpleName());
+
+            getSupportFragmentManager().popBackStack();
+
+        }
+
+    }
+
+//    @Override
+//    public void onBackPressed() {
+//        final Fragment currentFragment = getSupportFragmentManager().getFragments().get(0);
+//        final NavController controller = Navigation.findNavController(this, R.id.nav_host_fragment);
+//        if (currentFragment instanceof GeneratedCodeFragment.OnBackPressedListener)
+//            ((GeneratedCodeFragment.OnBackPressedListener) currentFragment).onBackPressed();
+//        else if (!controller.popBackStack())
+//            finish();
+//
+//    }
+
+
 }

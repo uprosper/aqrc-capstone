@@ -2,7 +2,7 @@
 <resources>
     <string-array name="code_types">
         <item>Select Type</item>
-        <item>QR Code</item>
-        <item>Bar Code</item>
+        <item>Standard Code</item>
+        <item>AQRC</item>
     </string-array>
 </resources>

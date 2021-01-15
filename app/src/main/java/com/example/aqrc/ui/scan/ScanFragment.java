@@ -82,61 +82,62 @@
 package com.example.aqrc.ui.scan;
 
 
-        import android.app.Activity;
-        import android.content.Context;
-        import android.content.Intent;
-        import android.database.Cursor;
-        import android.graphics.Bitmap;
-        import android.graphics.drawable.Drawable;
-        import android.net.Uri;
-        import android.os.Bundle;
-        import android.os.Environment;
-        import android.provider.MediaStore;
-        import android.text.TextUtils;
-        import android.util.Log;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import androidx.annotation.NonNull;
-        import androidx.annotation.Nullable;
-        import androidx.core.content.ContextCompat;
-        import androidx.loader.content.CursorLoader;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.loader.content.CursorLoader;
 
-        import com.example.aqrc.R;
-        import com.example.aqrc.helpers.constant.AppConstants;
-        import com.example.aqrc.helpers.constant.IntentKey;
-        import com.example.aqrc.helpers.constant.PreferenceKey;
-        import com.example.aqrc.helpers.model.Code;
-        import com.example.aqrc.helpers.util.FileUtil;
-        import com.example.aqrc.helpers.util.ProgressDialogUtil;
-        import com.example.aqrc.helpers.util.SharedPrefUtil;
-        import com.example.aqrc.helpers.util.image.ImageInfo;
-        import com.example.aqrc.helpers.util.image.ImagePicker;
-        import com.example.aqrc.ui.pickedfromgallery.PickedFromGalleryActivity;
-        import com.example.aqrc.ui.scanresult.ScanResultActivity;
-        import com.google.zxing.BinaryBitmap;
-        import com.google.zxing.DecodeHintType;
-        import com.google.zxing.LuminanceSource;
-        import com.google.zxing.MultiFormatReader;
-        import com.google.zxing.RGBLuminanceSource;
-        import com.google.zxing.Reader;
-        import com.google.zxing.Result;
-        import com.google.zxing.ResultPoint;
-        import com.google.zxing.client.android.BeepManager;
-        import com.google.zxing.common.HybridBinarizer;
-        import com.journeyapps.barcodescanner.BarcodeCallback;
-        import com.journeyapps.barcodescanner.BarcodeResult;
-        import com.journeyapps.barcodescanner.DecoratedBarcodeView;
+import com.example.aqrc.R;
+import com.example.aqrc.helpers.constant.AppConstants;
+import com.example.aqrc.helpers.constant.IntentKey;
+import com.example.aqrc.helpers.constant.PreferenceKey;
+import com.example.aqrc.helpers.model.Code;
+import com.example.aqrc.helpers.util.FileUtil;
+import com.example.aqrc.helpers.util.ProgressDialogUtil;
+import com.example.aqrc.helpers.util.SharedPrefUtil;
+import com.example.aqrc.helpers.util.image.ImageInfo;
+import com.example.aqrc.helpers.util.image.ImagePicker;
+import com.example.aqrc.ui.generate.GeneratedCodeFragment;
+import com.example.aqrc.ui.pickedfromgallery.PickedFromGalleryActivity;
+import com.example.aqrc.ui.scanresult.ScanResultActivity;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.DecodeHintType;
+import com.google.zxing.LuminanceSource;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.RGBLuminanceSource;
+import com.google.zxing.Reader;
+import com.google.zxing.Result;
+import com.google.zxing.ResultPoint;
+import com.google.zxing.client.android.BeepManager;
+import com.google.zxing.common.HybridBinarizer;
+import com.journeyapps.barcodescanner.BarcodeCallback;
+import com.journeyapps.barcodescanner.BarcodeResult;
+import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 
-        import java.io.File;
-        import java.io.FileOutputStream;
-        import java.io.IOException;
-        import java.util.Hashtable;
-        import java.util.List;
-        import java.util.Locale;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Locale;
 
 
 
@@ -152,8 +153,8 @@ public class ScanFragment extends androidx.fragment.app.Fragment implements View
     public ScanFragment() {
     }
 
-    public static com.example.aqrc.ui.generate.DashboardFragment newInstance() {
-        return new com.example.aqrc.ui.generate.DashboardFragment();
+    public static GeneratedCodeFragment newInstance() {
+        return new GeneratedCodeFragment();
     }
 
     @Override
@@ -199,7 +200,7 @@ public class ScanFragment extends androidx.fragment.app.Fragment implements View
 
                     if (result.getBitmap() != null) {
                         int typeIndex = result.getBarcodeFormat().name().toLowerCase().startsWith("qr")
-                                ? Code.QR_CODE : Code.BAR_CODE;
+                                ? Code.QR_CODE : Code.AQR_CODE;
                         String type = getResources().getStringArray(R.array.code_types)[typeIndex];
 
                         File codeImageFile = FileUtil.getEmptyFile(mContext, AppConstants.PREFIX_IMAGE,
@@ -215,7 +216,7 @@ public class ScanFragment extends androidx.fragment.app.Fragment implements View
 
                                 code = new Code(result.getText(),
                                         result.getBarcodeFormat().name().toLowerCase().startsWith("qr")
-                                                ? Code.QR_CODE : Code.BAR_CODE,
+                                                ? Code.QR_CODE : Code.AQR_CODE,
                                         codeImageFile.getPath(), result.getResult().getTimestamp());
                             } catch (IOException e) {
                                 if (!TextUtils.isEmpty(e.getMessage())) {
@@ -224,17 +225,17 @@ public class ScanFragment extends androidx.fragment.app.Fragment implements View
 
                                 code = new Code(result.getText(),
                                         result.getBarcodeFormat().name().toLowerCase().startsWith("qr")
-                                                ? Code.QR_CODE : Code.BAR_CODE, result.getResult().getTimestamp());
+                                                ? Code.QR_CODE : Code.AQR_CODE, result.getResult().getTimestamp());
                             }
                         } else {
                             code = new Code(result.getText(),
                                     result.getBarcodeFormat().name().toLowerCase().startsWith("qr")
-                                            ? Code.QR_CODE : Code.BAR_CODE, result.getResult().getTimestamp());
+                                            ? Code.QR_CODE : Code.AQR_CODE, result.getResult().getTimestamp());
                         }
                     } else {
                         code = new Code(result.getText(),
                                 result.getBarcodeFormat().name().toLowerCase().startsWith("qr")
-                                        ? Code.QR_CODE : Code.BAR_CODE, result.getResult().getTimestamp());
+                                        ? Code.QR_CODE : Code.AQR_CODE, result.getResult().getTimestamp());
                     }
 
                     Intent intent = new Intent(mContext, ScanResultActivity.class);
@@ -335,7 +336,7 @@ public class ScanFragment extends androidx.fragment.app.Fragment implements View
 
                     if (!TextUtils.isEmpty(imagePath)) {
                         int typeIndex = result.getBarcodeFormat().name().toLowerCase().startsWith("qr")
-                                ? Code.QR_CODE : Code.BAR_CODE;
+                                ? Code.QR_CODE : Code.AQR_CODE;
 
                         Code code = new Code(result.getText(), typeIndex,
                                 imagePath, result.getTimestamp());

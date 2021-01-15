@@ -13,16 +13,16 @@ import androidx.databinding.DataBindingUtil;
 
 import com.bumptech.glide.Glide;
 
-//import qrcoba.w3engineers.com.qrcoba.R;
-//import qrcoba.w3engineers.com.qrcoba.databinding.ActivityPickedFromGalleryBinding;
+//import com.example.aqrc.R;
+//import com.example.aqrc.databinding.ActivityPickedFromGalleryBinding;
 
 import com.example.aqrc.R;
 import com.example.aqrc.databinding.ActivityPickedFromGalleryBinding;
 import com.example.aqrc.helpers.constant.IntentKey;
 import com.example.aqrc.helpers.model.Code;
 import com.example.aqrc.ui.scanresult.ScanResultActivity;
-//import qrcoba.w3engineers.com.qrcoba.ui.scanresult.ScanResultActivity;
-//import qrcoba.w3engineers.com.qrcoba.ui.settings.SettingsActivity;
+//import com.example.aqrc.ui.scanresult.ScanResultActivity;
+//import com.example.aqrc.ui.settings.SettingsActivity;
 
 public class PickedFromGalleryActivity extends AppCompatActivity implements View.OnClickListener {
 
