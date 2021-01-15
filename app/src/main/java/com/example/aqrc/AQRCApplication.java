@@ -10,8 +10,8 @@ import com.example.aqrc.helpers.util.database.DatabaseUtil;
 
 //import com.google.android.gms.ads.MobileAds;
 //
-//import qrcoba.w3engineers.com.qrcoba.helpers.util.SharedPrefUtil;
-//import qrcoba.w3engineers.com.qrcoba.helpers.util.database.DatabaseUtil;
+//import com.example.aqrc.helpers.util.SharedPrefUtil;
+//import com.example.aqrc.helpers.util.database.DatabaseUtil;
 
 public class AQRCApplication extends MultiDexApplication {
 

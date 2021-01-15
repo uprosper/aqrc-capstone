@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_generate"
-        android:name="com.example.aqrc.ui.generate.DashboardFragment"
+        android:name="com.example.aqrc.ui.generate.GenerateCodeFragment"
         android:label="@string/title_generate"
-        tools:layout="@layout/fragment_generate" />
+        tools:layout="@layout/fragment_generate_code" />
 
     <fragment
         android:id="@+id/navigation_history"
